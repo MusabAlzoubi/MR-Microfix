@@ -1,6 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\shop;
+use App\Livewire\Home;
+use App\Livewire\Cart;
+use App\Livewire\Chekout;
+use App\Livewire\User\UserDashboard;
+use App\Livewire\Admin\AdminDashboard;
+use App\Livewire\Actions\Logout;
+
+Route::post('/logout', Logout::class)->name('logout');
+Route::get('/logout', Logout::class)->name('logout');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +24,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::get('/', Home::class)->name('home.index');
+Route::get('/shop', Shop::class)->name('shop');
+Route::get('/cart', Cart::class)->name('shop.cart');
+Route::get('/chekout', Chekout::class)->name('sshop.chekout');
+
+Route::middleware(['auth'])->group(function(){
+
+    Route::get('/user/dashboard', UserDashboard::class)->name('user.dashboard');
 });
+Route::middleware(['auth', 'authadmin'])->group(function(){
+
+    Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
+});
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+require __DIR__.'/auth.php';
+
+
+
+
+
+
