@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Livewire;
+use App\Models\Product;
+use Cart;
 
 use Livewire\Component;
-use App\Models\Product;
-use Livewire\WithPagination;
-use Cart;
-class Shop extends Component
-{
-    use WithPagination;
-    public $selectedOption = 30;
 
+class ProductDetails extends Component
+{
+    public $slug;
+    public function mount($slug)
+    {
+        $this->slug = $slug ;
+    }
     public function store($product_id, $product_name, $product_price)
     {
         // Using the 'associate' method with the fully-qualified namespace
@@ -22,19 +24,13 @@ class Shop extends Component
         // Redirecting to the 'shop.cart' route
         return redirect()->route('shop.cart');
     }
-    
-    public function updatedSelectedOption($selectedOption)
-    {
-        $this->selectedOption = $selectedOption; // Fix the typo here
-    }
-    
     public function render()
     {
-        $products = Product::paginate($this->selectedOption); // Fix the typo here
-        return view('livewire.shop', ['products' => $products]);
+
+        $product = Product::where('slug', $this->slug)->first();
+        $products = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(4)->get();
+        $nproducts = Product::Latest()->take(4)->get();
+
+        return view('livewire.product-details',['product'=>$product , 'products'=>$products]);
     }
-    
 }
-
-
-

@@ -171,6 +171,7 @@ return [
         App\Providers\VoltServiceProvider::class,
     ])->toArray(),
 
+        Gloudemans\shoppingcart\ShoppingcartServiceProvider::class,
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
@@ -184,6 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Cart' => Gloudemans\shoppingcart\Facades\Cart::class,
     ])->toArray(),
 
 ];

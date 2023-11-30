@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\shop;
 use App\Livewire\Home;
-use App\Livewire\Cart;
+use App\Livewire\CartShop;
 use App\Livewire\Chekout;
+use App\Livewire\ProductDetails;
+
 use App\Livewire\User\UserDashboard;
 use App\Livewire\Admin\AdminDashboard;
 use App\Livewire\Actions\Logout;
@@ -28,7 +30,9 @@ Route::get('/logout', Logout::class)->name('logout');
 
 Route::get('/', Home::class)->name('home.index');
 Route::get('/shop', Shop::class)->name('shop');
-Route::get('/cart', Cart::class)->name('shop.cart');
+Route::get('/product-details/{slug}', ProductDetails::class)->name('product.details');
+
+Route::get('/cart', CartShop::class)->name('shop.cart');
 Route::get('/chekout', Chekout::class)->name('sshop.chekout');
 
 Route::middleware(['auth'])->group(function(){
