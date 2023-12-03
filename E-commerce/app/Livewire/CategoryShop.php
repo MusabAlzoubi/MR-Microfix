@@ -7,10 +7,12 @@ use App\Models\Product;
 use App\Models\Category;
 use Livewire\WithPagination;
 use Cart;
-class Shop extends Component
+class CategoryShop extends Component
 {
     use WithPagination;
     public $selectedOption = 30;
+
+    public $slug;
 
     public function store($product_id, $product_name, $product_price)
     {
@@ -28,19 +30,20 @@ class Shop extends Component
     {
         $this->selectedOption = $selectedOption; // Fix the typo here
     }
+
+    public function mount($slug)
+    {
+
+        $this->slug = $slug;
+    }
     
     public function render()
     {
-        $products = Product::paginate($this->selectedOption); // Fix the typo here
+        $Categoryy= Category::where('slug', $this->slug )->first();
+        $CategoryId=$Categoryy->id;
+        $categoryName=$Categoryy->name;
+        $products = Product::where('category_id',$CategoryId)->paginate($this->selectedOption); // Fix the typo here
         $category = Category::orderBy('name', 'Asc')->get();
-
-        return view('livewire.shop', ['products' => $products , 'category'=>$category]);
-
-
-
+        return view('livewire.category',['products' => $products , 'category'=>$category , 'categoryName'=>$categoryName]);
     }
-    
 }
-
-
-

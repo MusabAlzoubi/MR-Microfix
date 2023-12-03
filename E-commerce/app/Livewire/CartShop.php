@@ -3,6 +3,8 @@
 namespace App\Livewire;
 use Cart;
 use Livewire\Component;
+use App\Models\Prodact;
+
 
 class CartShop extends Component
 {
@@ -33,5 +35,8 @@ class CartShop extends Component
     public function render()
     {
         return view('livewire.cart');
+
+
+
     }
 }

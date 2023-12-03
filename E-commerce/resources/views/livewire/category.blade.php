@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> Shop
+                    <span></span> Shop   <span></span> {{$categoryName}}
                 </div>
             </div>
         </div>
@@ -130,7 +130,7 @@
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
                                 @foreach($category as $category)
-                                     <li><a href="{{route('product.category',['slug'=>$category->slug])}}">{{$category->name}}</a></li>
+                                <li><a href="{{route('product.category',['slug'=>$category->slug])}}">{{$category->name}}</a></li>
                                 @endforeach
 
                             </ul>

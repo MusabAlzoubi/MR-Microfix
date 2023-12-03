@@ -18,7 +18,7 @@ class AuthAdmin
     {
         if (Auth::user()->utype ==="ADM")
         {
-            return $next($request);
+            return redirect()-route('admin.category');
 
         }
         else {
