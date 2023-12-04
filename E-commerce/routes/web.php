@@ -65,6 +65,21 @@ require __DIR__.'/auth.php';
 
 
 
+// routes/web.php
+
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+// routes/web.php
+
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
+
+Route::resource('products', ProductController::class);
+
+Route::resource('categories', CategoryController::class);
+Route::resource('users', UserController::class);
+Route::resource('dashboard', DashboardController::class);
+
 
 
 
