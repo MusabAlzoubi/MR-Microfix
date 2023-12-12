@@ -25,10 +25,21 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // Validation can be added here if needed
-        Category::create($request->all());
-
+        $category = Category::create($request->all());
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('images/category', $imageName);
+    
+            // Assuming you have an 'image' column in your categories table
+            $category->image = $imageName;
+            $category->save();
+        }
+    7
         return redirect()->route('categories.index')->with('success', 'Category added successfully!');
     }
+    
 
     public function edit(Category $category)
     {

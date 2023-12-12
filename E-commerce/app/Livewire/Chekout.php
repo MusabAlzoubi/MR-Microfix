@@ -10,7 +10,9 @@ use Cart;
 class Chekout extends Component
 {
 
-    
+    public $showEditForm = true; // Add this property to control showing the edit form
+    public $user;
+
     // ...
     
     public function placeOrder()
@@ -51,6 +53,7 @@ class Chekout extends Component
     public function render()
     {
         $cartItems = Cart::instance('cart')->content();
+        $this->user = auth()->user(); // الحصول على بيانات المستخدم المسجل
 
         return view('livewire.chekout' , ['cartItems' => $cartItems]);
     }
