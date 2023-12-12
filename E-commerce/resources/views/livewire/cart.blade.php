@@ -32,8 +32,8 @@
                                         </div>
                                     @endif
 
-                                @if(Cart::count() > 0)
-                            @foreach(Cart::content() as $item)
+                                @if(Cart::instance('cart')->count() > 0)
+                            @foreach(Cart::instance('cart')->content() as $item)
                                 <tr>
                                     <td class="image product-thumbnail"><img src="{{ asset('user-interface/imgs/shop/product-')}}{{$item->id}}-1.jpg" alt="{{ $item->name }}"></td>
                                     <td class="product-des product-name">
@@ -376,11 +376,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
-                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">{{Cart::subtotal()}}</span></td>
+                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">{{Cart::instance('cart')->subtotal()}}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Tax</td>
-                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">{{Cart::tax()}}</span></td>
+                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">{{Cart::instance('cart')->tax()}}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Shipping</td>
@@ -388,12 +388,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Total</td>
-                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">{{Cart::total()}}</span></strong></td>
+                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">{{Cart::instance('cart')->total()}}</span></strong></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="checkout.html" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="{{ route('shop.chekout') }}" class="btn"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
                                 </div>
                             </div>
                         </div>

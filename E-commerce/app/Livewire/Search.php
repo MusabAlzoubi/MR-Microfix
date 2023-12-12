@@ -7,14 +7,13 @@ use App\Models\Product;
 use App\Models\Category;
 use Livewire\WithPagination;
 use Cart;
-class CategoryShop extends Component
+class Search extends Component
 {
     use WithPagination;
-    public $selectedOption = 20;
+    public $selectedOption = 5;
     public $sortField = 'created_at'; // Default sort field
     public $sortDirection = 'desc'; // Default sort direction
     public $sortname ='Defult' ; // Add this line
-    public $slug;
 
     public $min_value=0;
     public $max_value=10000;
@@ -56,8 +55,6 @@ class CategoryShop extends Component
     {
         $this->selectedOption = $size; // Fix the typo here
     }
-    
-
 
     public function store($product_id, $product_name, $product_price)
     {
@@ -70,31 +67,45 @@ class CategoryShop extends Component
         // Redirecting to the 'shop.cart' route
         return redirect()->route('shop.cart');
     }
-    
-    public function updatedSelectedOption($selectedOption)
-    {
-        $this->selectedOption = $selectedOption; // Fix the typo here
-    }
 
-    public function mount($slug)
-    {
+    public $q;
+    public $search_item;
+    public function mount(){
 
-        $this->slug = $slug;
+        $this->fill(request()->only('q'));
+        $this->search_item = '%'.$this->q .'%';
     }
+   
     
     public function render()
     {
-        $Categoryy= Category::where('slug', $this->slug )->first();
-        $CategoryId=$Categoryy->id;
-        $categoryName=$Categoryy->name;
-        $products = Product::where('category_id',$CategoryId)
+        $products = Product::where('name', 'like' , $this->search_item )
+        ->whereBetween( 'regular_price', [$this->min_value , $this->max_value])
         ->orderBy($this->sortField, $this->sortDirection)
-        ->paginate($this->selectedOption);
-
+        ->paginate($this->selectedOption); // Fix the typo here
         $category = Category::orderBy('name', 'Asc')->get();
-        return view('livewire.category',['products' => $products , 'category'=>$category , 'categoryName'=>$categoryName]);
+
+        return view('livewire.search', ['products' => $products , 'category'=>$category]);
+
+
+
     }
+    
+   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 

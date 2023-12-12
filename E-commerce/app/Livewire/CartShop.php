@@ -10,27 +10,27 @@ class CartShop extends Component
 {
     public function increaseQuantity($rowId)
     {
-        $item = Cart::get($rowId);
+        $item = Cart::instance('cart')->get($rowId);
         
         if ($item) {
-            Cart::update($rowId, $item->qty + 1);
+            Cart::instance('cart')->update($rowId, $item->qty + 1);
             $this->cart = Cart::content();
         }
     }
 
     public function decreaseQuantity($rowId)
     {
-        $item = Cart::get($rowId);
+        $item = Cart::instance('cart')->get($rowId);
 
         if ($item && $item->qty > 1) {
-            Cart::update($rowId, $item->qty - 1);
+            Cart::instance('cart')->update($rowId, $item->qty - 1);
             $this->cart = Cart::content();
         }
     }
     public function deleteItem($rowId)
     {
-        Cart::remove($rowId);
-        $this->cart = Cart::content();
+        Cart::instance('cart')->remove($rowId);
+        $this->cart = Cart::instance('cart')->content();
     }
     public function render()
     {

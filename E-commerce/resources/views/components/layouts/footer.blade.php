@@ -135,6 +135,7 @@
 <script src="user-interface/js/shop.js?v=3.3"></script>
 
 <livewire:scripts />
+@stack('scripts')
 
 </body>
 

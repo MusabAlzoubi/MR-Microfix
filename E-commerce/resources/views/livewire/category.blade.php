@@ -28,10 +28,10 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                     <ul>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(10)" class="@if($selectedOption == 10) active @endif">10</a></li>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(20)" class="@if($selectedOption == 20) active @endif">20</a></li>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(30)" class="@if($selectedOption == 30) active @endif">30</a></li>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(50)" class="@if($selectedOption == 50) active @endif">50</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(10)" class="@if($selectedOption == 10) active @endif">10</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(20)" class="@if($selectedOption == 20) active @endif">20</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(30)" class="@if($selectedOption == 30) active @endif">30</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(50)" class="@if($selectedOption == 50) active @endif">50</a></li>
                                     </ul>
 
                                     </div>
@@ -42,19 +42,20 @@
                                             <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
-                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                            <span> {{ $sortname }} <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="active" href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to High</a></li>
-                                            <li><a href="#">Price: High to Low</a></li>
-                                            <li><a href="#">Release Date</a></li>
-                                            <li><a href="#">Avg. Rating</a></li>
+                                            <li><a wire:click="sortBy('created_at')" class="{{ $sortField === 'created_at' ? 'active' : '' }}">Defult</a></li>
+                                            <li><a wire:click="sortBy('regular_price')" class="{{ $sortField === 'regular_price' ? 'active' : '' }}">Price: Low to High</a></li>
+                                            <li><a wire:click="sortBy('regular_price')" class="{{ $sortField === 'regular_price' ? 'active' : '' }}">Price: High to Low</a></li>
+                                            <li><a wire:click="sortBy('created_at')" class="{{ $sortField === 'release_date' ? 'active' : '' }}">Featured</a></li>
+                                            <li><a wire:click="sortBy('avg_rating')" class="{{ $sortField === 'avg_rating' ? 'active' : '' }}">Avg Rating</a></li>
                                         </ul>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="row product-grid-3">

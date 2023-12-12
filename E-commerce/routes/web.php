@@ -15,6 +15,8 @@ use App\Livewire\Admin\AdminAddCategory;
 
 
 use App\Livewire\Actions\Logout;
+use App\Livewire\Search;
+use App\Livewire\Wishlist;
 
 Route::post('/logout', Logout::class)->name('logout');
 Route::get('/logout', Logout::class)->name('logout');
@@ -39,7 +41,11 @@ Route::get('/product-category/{slug}', CategoryShop::class)->name('product.categ
 Route::get('/product-details/{slug}', ProductDetails::class)->name('product.details');
 
 Route::get('/cart', CartShop::class)->name('shop.cart');
-Route::get('/chekout', Chekout::class)->name('sshop.chekout');
+Route::get('/wishlist', Wishlist::class)->name('product.wishlist');
+
+Route::get('/chekout', Chekout::class)->name('shop.chekout');
+Route::get('/search', Search::class)->name('product.search');
+
 
 Route::middleware(['auth'])->group(function(){
 

@@ -1,4 +1,15 @@
 <div>
+    <style>
+
+.wishlisted{
+    background-color: orange !important;
+    border: solid transparent !important ;
+
+}
+.wishlisted i{
+    color: white !important;
+}
+    </style>
 <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -28,10 +39,10 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                     <ul>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(10)" class="@if($selectedOption == 10) active @endif">10</a></li>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(20)" class="@if($selectedOption == 20) active @endif">20</a></li>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(30)" class="@if($selectedOption == 30) active @endif">30</a></li>
-                                        <li><a href="#" wire:click.prevent="updatedSelectedOption(50)" class="@if($selectedOption == 50) active @endif">50</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(10)" class="@if($selectedOption == 10) active @endif">10</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(20)" class="@if($selectedOption == 20) active @endif">20</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(30)" class="@if($selectedOption == 30) active @endif">30</a></li>
+                                        <li><a href="#" wire:click.prevent="UpdatedPageSize(50)" class="@if($selectedOption == 50) active @endif">50</a></li>
                                     </ul>
 
                                     </div>
@@ -42,22 +53,31 @@
                                             <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
-                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                            <span> {{ $sortname }} <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="active" href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to High</a></li>
-                                            <li><a href="#">Price: High to Low</a></li>
-                                            <li><a href="#">Release Date</a></li>
-                                            <li><a href="#">Avg. Rating</a></li>
+                                            <li><a wire:click="sortBy('created_at')" class="{{ $sortField === 'created_at' ? 'active' : '' }}">Defult</a></li>
+                                            <li><a wire:click="sortBy('regular_price')" class="{{ $sortField === 'regular_price' ? 'active' : '' }}">Price: Low to High</a></li>
+                                            <li><a wire:click="sortBy('regular_price')" class="{{ $sortField === 'regular_price' ? 'active' : '' }}">Price: High to Low</a></li>
+                                            <li><a wire:click="sortBy('created_at')" class="{{ $sortField === 'release_date' ? 'active' : '' }}">Featured</a></li>
+                                            <li><a wire:click="sortBy('avg_rating')" class="{{ $sortField === 'avg_rating' ? 'active' : '' }}">Avg Rating</a></li>
                                         </ul>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="row product-grid-3">
+
+                           @php
+
+
+                                $witems=Cart::instance('wishlist')->content()->pluck('id');
+                           
+
+                           @endphp
 
                         @foreach($products as $product)
                             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
@@ -95,6 +115,19 @@
                                             <span class="old-price">{{$product->regular_price}}</span>
                                         </div>
                                         <div class="product-action-1 show">
+
+                                            @if($witems->contains($product->id))
+
+                                            <a aria-label="Remove From Wishlist" class="action-btn hover-up wishlisted" href="#" wire:click.prevent="deleteFromWisshList({{$product->id}})"><i class="fi-rs-heart"></i></a>
+
+                                                
+                                            @else
+                                                  <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="addToWisshList({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-heart"></i></a>
+          
+                                            @endif
+
+                                            
+
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i class="fi-rs-shopping-bag-add"></i></a>
                                         </div>
                                     </div>
@@ -143,10 +176,10 @@
                             </div>
                             <div class="price-filter">
                                 <div class="price-filter-inner">
-                                    <div id="slider-range"></div>
+                                    <div id="slider-range" wire:ignore></div>
                                     <div class="price_slider_amount">
                                         <div class="label-input">
-                                            <span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price">
+                                            <span>Range: <span class="text_info">{{ $min_value }}</span> - <span class="text_info">{{ $max_value }}</span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -235,3 +268,26 @@
             </div>
         </section>
     </main></div>
+
+    @push('Scripts')
+    <script>
+        var sliderrange = $('#slider-range');
+        var amountprice = $('#amount');
+
+        $(function() {
+            sliderrange.slider({
+                range: true,
+                min: 0,
+                max: 1000,
+                values: [0, 1000],
+                slide: function(event, ui) {
+                    amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
+                    @this.set('min_value', ui.values[0]);
+                    @this.set('max_value', ui.values[1]);
+                }
+            });
+        });
+    </script>
+@endpush
+
+

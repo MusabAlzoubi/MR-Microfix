@@ -74,19 +74,11 @@
                         <a href="index.html"><img src="images/logo.png" alt="Logo"> </a>
                     </div>
                     <div class="header-right">
-                        <div class="search-style-1">
-                            <form action="#">                                
-                                <input type="text" placeholder="Search for items...">
-                            </form>
-                        </div>
+                        <livewire:header-search />
                         <div class="header-action-right">
-                            <div class="header-action-2">
-                                <div class="header-action-icon-2">
-                                    <a href="shop-wishlist.php">
-                                        <img class="svgInject" alt="Surfside Media" src="user-interface/imgs/theme/icons/icon-heart.svg">
-                                        <span class="pro-count blue">4</span>
-                                    </a>
-                                </div>
+
+                                <livewire:wishlist-icon />
+
                                 <livewire:cart-icon />
 
                             </div>
