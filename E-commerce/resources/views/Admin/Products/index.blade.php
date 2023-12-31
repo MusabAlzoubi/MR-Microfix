@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Table</strong> 
+                        <strong class="card-title">products Table</strong> 
                         <button> <a href="{{ route('products.create') }}"> add </a></button>
                     </div>
                     <div class="card-body">

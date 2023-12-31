@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group">
                             <label for="images">Additional Images</label>
-                            <input type="file" name="images" class="form-control-file" accept="image/*">
+                            <input type="file" name="images[]" class="form-control-file" accept="image/*" multiple >
 
                         </div>
                         <div class="form-group">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\shop;
 use App\Livewire\Home;
@@ -18,8 +19,11 @@ use App\Livewire\Actions\Logout;
 use App\Livewire\Search;
 use App\Livewire\Wishlist;
 
-Route::post('/logout', Logout::class)->name('logout');
-Route::get('/logout', Logout::class)->name('logout');
+// routes/web.php
+
+
+// Route::post('/logout', [AuthLogoutController::class, 'logout'])->name('logout');
+
 
 
 /*
@@ -32,6 +36,10 @@ Route::get('/logout', Logout::class)->name('logout');
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// routes/web.php or routes/web.php
+
+
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 
@@ -53,15 +61,13 @@ Route::middleware(['auth'])->group(function(){
 });
 Route::middleware(['auth', 'authadmin'])->group(function(){
 
-    Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
-    Route::get('/admin/category', AdminCategory::class)->name('admin.category');
-    Route::get('/admin/categories/add', AdminAddCategory::class)->name('admin.categories.add');
+
 
 
 });
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -75,17 +81,23 @@ require __DIR__.'/auth.php';
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 // routes/web.php
 
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\USRProfile;
 
 Route::resource('products', ProductController::class);
+Route::resource('orders', OrderController::class);
 
 Route::resource('categories', CategoryController::class);
 Route::resource('users', UserController::class);
 Route::resource('dashboard', DashboardController::class);
+// Route::get('dashboard', [DashboardController::class, 'index'])->name('adm.dashboard');
 
 
 
 
+
+Route::resource('myprofile', USRProfile::class);

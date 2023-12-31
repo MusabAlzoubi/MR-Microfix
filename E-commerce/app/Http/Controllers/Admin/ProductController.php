@@ -29,24 +29,25 @@ class ProductController extends Controller
         // Validation can be added here if needed
         $product = Product::create($request->all()); // Create the product
         
-        if ($request->hasFile('images')) {
-            $images = $request->file('images'); // Use 'images' instead of 'image'
-            $imageNames = [];
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('images/product', $imageName);
     
-            foreach ($images as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName(); // Use a more descriptive name
-                $image->move('images/product', $imageName);
-                $imageNames[] = $imageName; // Append each image name to the array
-            }
-    
-            // Assuming you have a column named 'images' in your products table
-            $product->images = $imageNames; // Save the array of image names to the 'images' column
-            $product->save(); // Save the product with the images
+            // Assuming you have an 'image' column in your products table
+            $product->image = $imageName;
         }
     
+      
+    
+            // Assuming you have a column named 'images' in your products table
+      
+    
+        $product->save(); // Save the updated product with the new image(s)
+
         // Additional logic if needed
     
-        return redirect()->route('product.index');
+        return redirect()->route('products.index');
     }
     
     

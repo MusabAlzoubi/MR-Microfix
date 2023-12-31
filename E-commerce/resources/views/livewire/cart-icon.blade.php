@@ -13,7 +13,7 @@
                                             <li>
                                                 <div class="shopping-cart-img">
                                                     <a href="">
-                                                        <img alt="{{ $item->name }}" src="{{ asset('user-interface/imgs/shop/product-')}}{{$item->id}}-1.jpg" alt="{{ $item->name }}">
+                                                        <img  src="{{ asset('images/product/' . $item->model->image) }}" alt="{{ $item->name }}">
                                                     </a>
                                                 </div>
                                                 <div class="shopping-cart-title">
@@ -34,8 +34,18 @@
                                             </div>
                                             <div class="shopping-cart-button">
                                                 <a href="{{route('shop.cart')}}" class="outline">View cart</a>
-                                                <a href="checkout.html">Checkout</a>
-                                            </div>
+                                                @if(Auth::check())
+                                                <a href="{{ route('shop.chekout') }}" class="outline">
+                                                    <i class="fi-rs-box-alt mr-10"></i> Proceed To Checkout
+                                                </a>
+                                            @else
+                                                <div class="alert alert-warning" role="alert">
+                                                    <button disabled class="outline btn-disabled">
+                                                        <i class="fi-rs-box-alt mr-10"></i> Proceed To Checkout
+                                                    </button>
+                                                    <p>We require you to be logged in first.</p>
+                                                </div>
+                                            @endif                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -30,13 +30,16 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move('images/category', $imageName);
+            $image->move('images/category/', $imageName);
     
-            // Assuming you have an 'image' column in your categories table
+            // Assuming you have an 'image' column in your products table
             $category->image = $imageName;
-            $category->save();
         }
-    7
+
+        $category->save(); // Save only if image is updated
+
+
+    
         return redirect()->route('categories.index')->with('success', 'Category added successfully!');
     }
     
@@ -50,9 +53,22 @@ class CategoryController extends Controller
     {
         // Validation can be added here if needed
         $category->update($request->all());
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('images/category', $imageName);
+    
+            // Assuming you have an 'image' column in your products table
+            $category->image = $imageName;
+        }
 
+        $category->save(); // Save only if image is updated
+
+    
         return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
+    
 
     public function destroy(Category $category)
     {

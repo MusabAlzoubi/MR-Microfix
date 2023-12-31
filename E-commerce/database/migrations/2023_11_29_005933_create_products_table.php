@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('regular_price', 8, 2);
             $table->decimal('sale_price', 8, 2)->nullable();
-            $table->string('image');
-            $table->text('images');
+            $table->string('image')->nullable();
+            $table->text('images')->nullable();
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

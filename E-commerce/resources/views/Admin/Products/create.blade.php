@@ -45,7 +45,6 @@
                         </div>
                         <div class="form-group">
                             <label for="images">Additional Images</label>
-                            <input type="file" name="images" class="form-control-file" accept="image/*" required>
 
                         </div>
                         <div class="form-group">

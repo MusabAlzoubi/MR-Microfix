@@ -13,7 +13,6 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Data Table</strong> 
-                        <button> <a href="{{ route('users.create') }}"> add </a></button>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -36,7 +35,6 @@
                                         <td>{{ $user->email_verified_at }}</td>
                                         <td>{{ $user->utype }}</td>
                                         <td>
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                             <form action="{{ route('users.destroy', $user->id) }}" method="post" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')

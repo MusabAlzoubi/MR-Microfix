@@ -13,10 +13,17 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function products()
+    public function details()
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity', 'price');
+        return $this->hasMany(OrderDetail::class);
+    }
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
     use HasFactory;
+    public function status_changes()
+    {
+        return $this->hasMany(OrderStatusChange::class)->orderBy('created_at', 'desc');
+    }
 }

@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $category_name ,
             'slug' => $slug ,
-            'img' => 'product-'.$this->faker->numberBetween(10,500)
+            'image' => 'product-'.$this->faker->numberBetween(10,500)
 
             //
         ];

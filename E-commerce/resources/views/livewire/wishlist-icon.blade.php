@@ -15,7 +15,7 @@
                                                 <li>
                                                     <div class="shopping-cart-img">
                                                         <a href="">
-                                                            <img alt="{{ $item->name }}" src="{{ asset('user-interface/imgs/shop/product-')}}{{$item->id}}-1.jpg" alt="{{ $item->name }}">
+                                                            <img  src="{{ asset('images/product/' . $item->model->image) }}" alt="{{ $item->name }}">
                                                         </a>
                                                     </div>
                                                     <div class="shopping-cart-title">
@@ -23,9 +23,15 @@
                                                         <h4>${{ number_format($item->price, 2) }}</h4>
                                                     </div>
                                                     <div class="shopping-cart-delete">
-                                                            <a aria-label="Remove From Wishlist" class="action-btn hover-up wishlisted" href="#" wire:click.prevent="deleteFromWisshList({{$item->id}})"><i class="fi-rs-cross-small"></i></a>
-
-                                                            
+                                                        <a aria-label="Remove From Wishlist"  href="#" wire:click.prevent="deleteFromWishlist({{ $item->id }})">
+                                                            <i class="fi-rs-cross-small"></i>
+                                                        </a>
+                                                      
+                                                    </div>
+                                                    <div class="shopping-cart-delete">
+                                                        
+                                                        <a aria-label="Add To Cart"  href="#" wire:click.prevent="store({{ $item->model->id }}, '{{ $item->model->name }}', {{ $item->model->regular_price }})">
+                                                            <i class="fi-rs-shopping-bag-add"></i>
                                                         </a>
                                                     </div>
                                                 </li>

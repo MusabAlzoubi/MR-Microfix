@@ -18,6 +18,29 @@ class Search extends Component
     public $min_value=0;
     public $max_value=10000;
     
+    public function addToWisshList($product_id, $product_name, $product_price){
+
+        Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate(\App\Models\Product::class);
+
+    }
+    public function deleteFromWisshList($product_id)
+    {
+        foreach(Cart::instance('wishlist')->content() as $witem)
+        {
+            if($witem->id == $product_id )
+            {
+                Cart::instance('wishlist')->remove($witem->rowId);
+                return;
+            }
+        }
+
+    }
+
+
+
+
+
+
     public function sortBy($field)
     {
         if ($field === $this->sortField) {

@@ -19,14 +19,47 @@ new  class extends Component
 
         $this->form->authenticate();
 
+        $this->performPostAuthenticationTasks();
+    }
+
+    /**
+     * Perform tasks after successful authentication.
+     */
+    private function performPostAuthenticationTasks(): void
+    {
         Session::regenerate();
 
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
-        );
+        $redirectTo = $this->getRedirectToPath();
+
+        $this->redirect($redirectTo, navigate: true);
+    }
+
+    /**
+     * Get the redirection path based on the user's 'utype'.
+     *
+     * @return string
+     */
+    private function getRedirectToPath(): string
+    {
+        $utype = auth()->user()->utype;
+
+        // Customize the redirection based on the user's 'utype'
+        switch ($utype) {
+            case 'ADM':
+                return route('dashboard.index'); // Change 'adm.dashboard' to your actual admin dashboard route
+            case 'USR':
+                return route('home.index'); // Change 'home.index' to your actual user dashboard route
+            default:
+                return RouteServiceProvider::HOME;
+        }
     }
 }; ?>
+
+
+
+
+
+    
 
 <main class="main">
         <div class="page-header breadcrumb-wrap">

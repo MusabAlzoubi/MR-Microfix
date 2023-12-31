@@ -31,7 +31,6 @@ class Shop extends Component
     public function addToWisshList($product_id, $product_name, $product_price){
 
         Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate(\App\Models\Product::class);
-        $this->emitTo('wishlist-icon', 'refreshWishlistIcon');
 
     }
     public function deleteFromWisshList($product_id)
@@ -41,7 +40,6 @@ class Shop extends Component
             if($witem->id == $product_id )
             {
                 Cart::instance('wishlist')->remove($witem->rowId);
-                $this->emitTo('wishlist-icon', 'refreshWishlistIcon');
                 return;
             }
         }

@@ -16,8 +16,8 @@ class EditUser extends Component
     {
         $this->user = $user;
         $this->name = $user->name;
-        // $this->mobile = $user->mobile;
-        // $this->address = $user->address;
+        $this->mobile = $user->mobile;
+        $this->address = $user->address;
     }
 
     public function save()

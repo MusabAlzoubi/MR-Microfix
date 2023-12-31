@@ -2,7 +2,7 @@
     
    
 {{ $slot }}
-    <!-- @yield('contant'); -->
+    @yield('contant')
 
 
 
